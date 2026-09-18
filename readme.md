@@ -51,54 +51,6 @@ credit-risk-policy-copilot/
 ├── requirements.txt
 └── README.md
 ```
-
-## Setup
-
-```bash
-python -m venv venv
-source venv/bin/activate          # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
-
-Download the [Lending Club Loan Data](https://www.kaggle.com/datasets/wordsforthewise/lending-club)
-and place the accepted-loans CSV at `data/raw/lending_club.csv`.
-
-## Running the pipeline
-
-Run the notebooks in order — each one reads the previous notebook's output:
-
-1. `01_data_understanding.ipynb` — target definition, leakage-column removal
-2. `02_eda.ipynb` — distributions, class imbalance strategy
-3. `03_feature_engineering.ipynb` — encoding, scaling, derived ratios
-4. `04_credit_risk_model.ipynb` — trains Logistic Regression + XGBoost, threshold analysis
-5. `05_model_validation.ipynb` — cross-validation, SHAP, PSI drift check
-6. `06_rag_evaluation.ipynb` — builds the policy index, measures retrieval quality
-
-## Running the app
-
-```bash
-cd app
-streamlit run app.py
-```
-
-To enable LLM-generated (rather than retrieval-only) explanations, set:
-
-```bash
-export ANTHROPIC_API_KEY=your-key-here   # Windows: set ANTHROPIC_API_KEY=your-key-here
-```
-
-Without a key, the app falls back to showing the raw retrieved policy excerpts.
-
-## Deploying for others to see (e.g. a portfolio link)
-
-The GitHub repo can stay private while the deployed app is public:
-
-1. Push this repo to GitHub (private is fine)
-2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub
-3. "New app" → point it at this repo, branch, and `app/app.py`
-4. Under the app's **Settings → Secrets**, add `ANTHROPIC_API_KEY` if you want live LLM answers
-5. Share the resulting `*.streamlit.app` link — no GitHub access needed to view it
-
 ## Key results (full Lending Club dataset)
 
 | Metric | Logistic Regression | XGBoost |
